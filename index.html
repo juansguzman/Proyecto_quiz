@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estonia & Europe Cyber Threat Quiz</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: #0f172a;
+            color: #e2e8f0;
+            max-width: 780px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+            line-height: 1.5;
+        }
+        .quiz-container {
+            background: #1e293b;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+            border: 1px solid #334155;
+        }
+        h2 { color: #38bdf8; margin-top: 0; }
+        h3 { color: #f8fafc; margin-bottom: 0.5rem; margin-top: 0.75rem; }
+        .meta-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            font-size: 0.85rem;
+        }
+        .progress {
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 600;
+        }
+        .badges { display: flex; gap: 0.5rem; }
+        .badge {
+            padding: 0.2rem 0.65rem;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+        .badge-easy { background-color: #064e3b; color: #34d399; border: 1px solid #059669; }
+        .badge-medium { background-color: #78350f; color: #fbbf24; border: 1px solid #d97706; }
+        .badge-hard { background-color: #7f1d1d; color: #f87171; border: 1px solid #dc2626; }
+        .badge-cat { background-color: #1e3a8a; color: #93c5fd; border: 1px solid #2563eb; }
+
+        .question, #start-section { display: none; }
+        .active { display: block !important; }
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin-top: 1.25rem;
+        }
+        button {
+            background-color: #0284c7;
+            color: #ffffff;
+            border: none;
+            padding: 0.85rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-top: 1.5rem;
+            transition: background-color 0.2s;
+        }
+        button:hover { background-color: #0369a1; }
+        button:disabled {
+            background-color: #475569;
+            color: #94a3b8;
+            cursor: not-allowed;
+        }
+        .option-btn {
+            background-color: #334155;
+            color: #f1f5f9;
+            text-align: left;
+            font-weight: 400;
+            margin-top: 0;
+            border: 1px solid #475569;
+        }
+        .option-btn:hover { background-color: #475569; }
+        .option-btn.selected {
+            background-color: #0284c7;
+            border-color: #38bdf8;
+            color: #ffffff;
+            font-weight: 600;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 0.85rem;
+            margin-top: 0.5rem;
+            border: 1px solid #475569;
+            border-radius: 8px;
+            background-color: #0f172a;
+            color: #f8fafc;
+            box-sizing: border-box;
+            font-size: 1rem;
+        }
+        .consent-box {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.6rem;
+            margin-top: 1.25rem;
+            padding: 0.85rem;
+            background-color: #0f172a;
+            border-radius: 8px;
+            border: 1px solid #334155;
+            font-size: 0.85rem;
+            color: #cbd5e1;
+        }
+        .consent-box input { margin-top: 0.2rem; cursor: pointer; }
+        .score-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.75rem;
+            margin: 1.25rem 0;
+        }
+        .score-card {
+            background: #0f172a;
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid #334155;
+        }
+        .score-card span { display: block; font-size: 0.8rem; color: #94a3b8; text-transform: uppercase; }
+        .score-card strong { font-size: 1.4rem; color: #f8fafc; }
+        .status-msg { margin-top: 1rem; font-size: 0.9rem; color: #94a3b8; }
+    </style>
+</head>
+<body>
+
+<div class="quiz-container">
+    <h2>Estonia &amp; Europe Cyber Threat Quiz</h2>
+    <p id="quiz-intro">Test your knowledge across 3 progressive levels (5 Easy, 5 Medium, 5 Hard) covering famous viruses, European cyber history, and cyber-physical attacks.</p>
+
+    <div id="start-section" class="active">
+        <label for="participant-name"><strong>Enter your Name or Nickname to start:</strong></label>
+        <input type="text" id="participant-name" placeholder="e.g. Alex">
+
+        <label class="consent-box">
+            <input type="checkbox" id="privacy-consent">
+            <span>I agree to the collection of my quiz answers, IP address, and basic device analytics (OS, screen size, browser) strictly for educational and data analysis purposes.</span>
+        </label>
+
+        <button id="start-btn" disabled>Loading questions...</button>
+    </div>
+
+    <div id="quiz-content"></div>
+
+    <button id="next-btn" style="display: none;">Next Question</button>
+    <div id="result"></div>
+</div>
+
+<script>
+    // REPLACE WITH YOUR GOOGLE APPS SCRIPT WEB APP URL
+    const GOOGLE_SCRIPT_URL = "/api/submit";
+
+    let questionBank = null;
+    let activeQuiz = [];
+    let currentQuestion = 0;
+    let selectedOption = null;
+    let participantName = "";
+    let startTime = null;
+    let userAnswers = {}; // Maps question_id -> selected option index
+
+    let networkInfo = { ip: "Unknown", city: "Unknown", country: "Unknown", isp: "Unknown" };
+
+    const startSection = document.getElementById("start-section");
+    const startBtn = document.getElementById("start-btn");
+    const nameInput = document.getElementById("participant-name");
+    const consentCheckbox = document.getElementById("privacy-consent");
+    const quizContent = document.getElementById("quiz-content");
+    const nextBtn = document.getElementById("next-btn");
+    const resultDiv = document.getElementById("result");
+    const introText = document.getElementById("quiz-intro");
+
+    // 1. Load questions.json on startup
+    async function initQuizData() {
+        try {
+            const res = await fetch("questions.json");
+            if (!res.ok) throw new Error("Failed to load questions.json");
+            questionBank = await res.json();
+            startBtn.textContent = "Start 15-Question Challenge";
+            startBtn.disabled = false;
+        } catch (err) {
+            console.error(err);
+            startBtn.textContent = "Error loading quiz data";
+        }
+    }
+
+    // 2. Pre-fetch IP & Geo silently
+    async function fetchNetworkInfo() {
+        try {
+            const res = await fetch("https://ipapi.co/json/");
+            if (res.ok) {
+                const data = await res.json();
+                networkInfo.ip = data.ip || "Unknown";
+                networkInfo.city = data.city || "Unknown";
+                networkInfo.country = data.country_name || "Unknown";
+                networkInfo.isp = data.org || "Unknown";
+                return;
+            }
+        } catch (e) {
+            try {
+                const res = await fetch("https://api.ipify.org?format=json");
+                if (res.ok) {
+                    const data = await res.json();
+                    networkInfo.ip = data.ip || "Unknown";
+                }
+            } catch (err) {}
+        }
+    }
+
+    initQuizData();
+    fetchNetworkInfo();
+
+    function shuffleArray(arr) {
+        const copy = [...arr];
+        for (let i = copy.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [copy[i], copy[j]] = [copy[j], copy[i]];
+        }
+        return copy;
+    }
+
+    startBtn.addEventListener("click", () => {
+        if (nameInput.value.trim() === "") {
+            alert("Please enter your name or nickname.");
+            return;
+        }
+        if (!consentCheckbox.checked) {
+            alert("Please accept the privacy notice to participate.");
+            return;
+        }
+        participantName = nameInput.value.trim();
+
+        const easySet = shuffleArray(questionBank.easy).slice(0, 5).map(q => ({ ...q, difficulty: "Easy" }));
+        const mediumSet = shuffleArray(questionBank.medium).slice(0, 5).map(q => ({ ...q, difficulty: "Medium" }));
+        const hardSet = shuffleArray(questionBank.hard).slice(0, 5).map(q => ({ ...q, difficulty: "Hard" }));
+        activeQuiz = [...easySet, ...mediumSet, ...hardSet];
+
+        startTime = Date.now();
+        startSection.classList.remove("active");
+        loadQuestion();
+    });
+
+    function loadQuestion() {
+        selectedOption = null;
+        const q = activeQuiz[currentQuestion];
+        const diffClass = `badge-${q.difficulty.toLowerCase()}`;
+
+        quizContent.innerHTML = `
+            <div class="question active">
+                <div class="meta-bar">
+                    <span class="progress">Question ${currentQuestion + 1} of ${activeQuiz.length}</span>
+                    <div class="badges">
+                        <span class="badge badge-cat">${q.category}</span>
+                        <span class="badge ${diffClass}">${q.difficulty}</span>
+                    </div>
+                </div>
+                <h3>${q.title}</h3>
+                <p>${q.text}</p>
+                <div class="options">
+                    ${q.options.map((opt, index) => `
+                        <button class="option-btn" onclick="selectOption(${index}, this)">${opt}</button>
+                    `).join("")}
+                </div>
+            </div>
+        `;
+        nextBtn.style.display = "block";
+        nextBtn.textContent = (currentQuestion === activeQuiz.length - 1) ? "Submit & Grade" : "Next Question";
+        nextBtn.disabled = true;
+    }
+
+    window.selectOption = function(index, btn) {
+        selectedOption = index;
+        document.querySelectorAll(".option-btn").forEach(b => b.classList.remove("selected"));
+        btn.classList.add("selected");
+        nextBtn.disabled = false;
+    };
+
+    nextBtn.addEventListener("click", () => {
+        const q = activeQuiz[currentQuestion];
+        userAnswers[q.id] = selectedOption;
+        currentQuestion++;
+
+        if (currentQuestion < activeQuiz.length) {
+            loadQuestion();
+        } else {
+            submitForGrading();
+        }
+    });
+
+    async function submitForGrading() {
+        const timeTakenSeconds = Math.round((Date.now() - startTime) / 1000);
+        quizContent.innerHTML = "";
+        nextBtn.style.display = "none";
+        introText.style.display = "none";
+
+        resultDiv.innerHTML = `<h3>Grading your challenge...</h3><p class="status-msg">Verifying answers securely with the server.</p>`;
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const origin = urlParams.get("origin") || "Direct";
+
+        const isTouch = (navigator.maxTouchPoints > 0) || ("ontouchstart" in window);
+        const isMobileFallback = /Mobi|Android|iPhone/i.test(navigator.userAgent);
+
+        let platform = "Unknown";
+        let isMobileModern = false;
+
+        if (navigator.userAgentData) {
+            platform = navigator.userAgentData.platform || "Unknown";
+            isMobileModern = navigator.userAgentData.mobile;
+        } else {
+            platform = navigator.platform || "Unknown";
+        }
+
+        const payload = {
+            participant_name: participantName,
+            answers: userAnswers,
+            max_score: activeQuiz.length,
+            time_taken_sec: timeTakenSeconds,
+            origin: origin,
+            ip_address: networkInfo.ip,
+            country: networkInfo.country,
+            city: networkInfo.city,
+            isp: networkInfo.isp,
+            platform: platform,
+            is_mobile: isMobileModern || isMobileFallback,
+            is_touch: isTouch,
+            resolution: `${window.screen.width}x${window.screen.height}`,
+            language: navigator.language || "Unknown",
+            timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || "Unknown",
+            user_agent: navigator.userAgent
+        };
+
+        try {
+            const response = await fetch(GOOGLE_SCRIPT_URL, {
+                method: "POST",
+                body: JSON.stringify(payload),
+                headers: { "Content-Type": "text/plain;charset=utf-8" }
+            });
+            const data = await response.json();
+
+            let message = "";
+            if (data.total_score >= 13) {
+                message = "Elite Defender! You have an outstanding command of European and cyber-physical threats.";
+            } else if (data.total_score >= 9) {
+                message = "Solid Analyst! You handled the fundamentals and major incidents well.";
+            } else {
+                message = "Good start! Reviewing these historical incidents is a great way to build your cyber intuition.";
+            }
+
+            resultDiv.innerHTML = `
+                <h3>Challenge Completed, ${participantName}!</h3>
+                <p><strong>Total Score:</strong> ${data.total_score} / ${activeQuiz.length} &nbsp;|&nbsp; <strong>Time:</strong> ${timeTakenSeconds}s</p>
+                <div class="score-grid">
+                    <div class="score-card"><span>Easy</span><strong>${data.easy_score} / 5</strong></div>
+                    <div class="score-card"><span>Medium</span><strong>${data.medium_score} / 5</strong></div>
+                    <div class="score-card"><span>Hard</span><strong>${data.hard_score} / 5</strong></div>
+                </div>
+                <p>${message}</p>
+                <div class="status-msg" style="color: #4ade80;">Results verified and recorded. Thank you for participating!</div>
+            `;
+        } catch (error) {
+            console.error("Error grading quiz:", error);
+            resultDiv.innerHTML = `
+                <h3>Submission Error</h3>
+                <p class="status-msg" style="color: #f87171;">Could not reach the grading server. Please verify your Apps Script Web App URL.</p>
+            `;
+        }
+    }
+</script>
+
+</body>
+</html>

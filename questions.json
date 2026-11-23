@@ -1,0 +1,260 @@
+{
+  "easy": [
+    {
+      "id": "easy_1",
+      "category": "Estonia & Europe",
+      "title": "The 2007 Estonia Cyberattacks",
+      "text": "In April 2007, Estonia suffered a massive wave of cyberattacks against banks, media, and government sites. What major NATO institution was later established in Tallinn as a direct result?",
+      "options": [
+        "The NATO Space Command",
+        "The NATO Cooperative Cyber Defence Centre of Excellence (CCDCOE)",
+        "The European Central Cyber Bank",
+        "The Baltic Hardware Security Agency"
+      ]
+    },
+    {
+      "id": "easy_2",
+      "category": "Malware & Botnets",
+      "title": "WannaCry (2017)",
+      "text": "WannaCry paralyzed hospitals in the UK (NHS), Telefónica in Spain, and train displays in Germany. What type of malware was WannaCry?",
+      "options": [
+        "Spyware",
+        "Adware",
+        "Ransomware",
+        "Keylogger"
+      ]
+    },
+    {
+      "id": "easy_3",
+      "category": "Cyber-Physical (OT/ICS)",
+      "title": "Operation Stuxnet (2010)",
+      "text": "Stuxnet is famous for being the first digital weapon to cause physical destruction. What real-world facility did it target?",
+      "options": [
+        "A European hydroelectric dam",
+        "An Iranian nuclear enrichment facility",
+        "A German automotive factory",
+        "A Nordic power grid substation"
+      ]
+    },
+    {
+      "id": "easy_4",
+      "category": "Malware & Botnets",
+      "title": "What is a Botnet?",
+      "text": "Many major European DDoS attacks rely on botnets. What is a botnet?",
+      "options": [
+        "A network of infected 'zombie' computers controlled remotely by an attacker.",
+        "A secure firewall used by European banks.",
+        "An automated antivirus scanner.",
+        "A type of encrypted USB drive."
+      ]
+    },
+    {
+      "id": "easy_5",
+      "category": "Malware & Botnets",
+      "title": "The ILOVEYOU Worm (2000)",
+      "text": "The ILOVEYOU virus infected millions of computers across Europe and the world in hours. How did it primarily spread?",
+      "options": [
+        "Through infected Bluetooth headphones.",
+        "Via an email attachment disguised as a love letter.",
+        "By exploiting smart TVs.",
+        "Through public Wi-Fi hotspots."
+      ]
+    },
+    {
+      "id": "easy_6",
+      "category": "Estonia & Europe",
+      "title": "European Data Protection",
+      "text": "Which landmark European Union regulation strictly governs how organizations collect and protect personal data like IP addresses and user profiles?",
+      "options": [
+        "HIPAA",
+        "GDPR (General Data Protection Regulation)",
+        "CCPA",
+        "PCI-DSS"
+      ]
+    },
+    {
+      "id": "easy_7",
+      "category": "Malware & Botnets",
+      "title": "Common Malware Entry Point",
+      "text": "According to ENISA (European Union Agency for Cybersecurity), what remains one of the most common initial ways malware enters an organization?",
+      "options": [
+        "Satellite signal hijacking",
+        "Phishing emails with malicious links or attachments",
+        "Physical theft of server racks",
+        "Radio frequency jamming"
+      ]
+    }
+  ],
+  "medium": [
+    {
+      "id": "med_1",
+      "category": "Estonia & Europe",
+      "title": "DNSChanger (2011 - Estonia)",
+      "text": "Created by the Estonian cybercrime ring 'Rove Digital', DNSChanger infected over 4 million PCs globally. What did it do?",
+      "options": [
+        "It encrypted hard drives and demanded Bitcoin.",
+        "It hijacked victims' DNS settings to silently redirect web traffic to fraudulent ads and malicious sites.",
+        "It physically overheated laptop batteries.",
+        "It deleted the Windows operating system."
+      ]
+    },
+    {
+      "id": "med_2",
+      "category": "Malware & Botnets",
+      "title": "WannaCry's Spreading Mechanism",
+      "text": "Which leaked Windows vulnerability allowed WannaCry to spread automatically like a worm across European corporate networks?",
+      "options": [
+        "Heartbleed (OpenSSL)",
+        "Log4Shell (Java)",
+        "EternalBlue (SMBv1)",
+        "Spectre (CPU)"
+      ]
+    },
+    {
+      "id": "med_3",
+      "category": "Cyber-Physical (OT/ICS)",
+      "title": "NotPetya (2017 - Europe & Global)",
+      "text": "NotPetya spread via a compromised update of M.E.Doc software and paralyzed European shipping giant Maersk. Although it demanded a ransom, what was its true nature?",
+      "options": [
+        "A destructive 'Wiper' that permanently destroyed the Master Boot Record (MBR) with no way to decrypt the data.",
+        "A cryptojacking worm mining Ethereum.",
+        "A harmless red-team test that escaped a lab.",
+        "A banking trojan stealing credit cards."
+      ]
+    },
+    {
+      "id": "med_4",
+      "category": "Cyber-Physical (OT/ICS)",
+      "title": "Viasat / AcidRain (2022 - Europe)",
+      "text": "A 2022 wiper attack against the Viasat KA-SAT satellite network caused massive collateral damage in Central Europe. What physical infrastructure was affected?",
+      "options": [
+        "Thousands of wind energy turbines in Germany lost remote control and monitoring.",
+        "Hydroelectric dam floodgates opened across Sweden.",
+        "Automated freight trains derailed in France.",
+        "Airport runways in Estonia lost lighting."
+      ]
+    },
+    {
+      "id": "med_5",
+      "category": "Malware & Botnets",
+      "title": "Emotet (Europol Takedown 2021)",
+      "text": "Dismantled in 2021 by an international operation coordinated by Europol, how did Emotet evolve over time?",
+      "options": [
+        "From a mobile game adware into a smart-TV virus.",
+        "From a banking trojan into a massive 'Malware-as-a-Service' botnet delivering ransomware.",
+        "From an antivirus into a firewall.",
+        "From a Linux kernel bug into a Wi-Fi cracker."
+      ]
+    },
+    {
+      "id": "med_6",
+      "category": "Malware & Botnets",
+      "title": "The Mirai Botnet (2016)",
+      "text": "Mirai caused massive internet outages across Europe and the US. What type of devices did it primarily infect?",
+      "options": [
+        "High-end gaming PCs.",
+        "IoT devices (IP cameras, routers, DVRs) using factory default usernames and passwords.",
+        "Apple iPhones via SMS.",
+        "Mainframe banking servers."
+      ]
+    },
+    {
+      "id": "med_7",
+      "category": "Estonia & Europe",
+      "title": "Stopping WannaCry",
+      "text": "How did a British cybersecurity researcher accidentally halt the initial global spread of WannaCry?",
+      "options": [
+        "By unplugging the main transatlantic fiber cable.",
+        "By registering an unregistered 'kill switch' domain hardcoded inside the malware.",
+        "By releasing a fake Bitcoin wallet.",
+        "By hacking into the attackers' command server and deleting it."
+      ]
+    }
+  ],
+  "hard": [
+    {
+      "id": "hard_1",
+      "category": "Cyber-Physical (OT/ICS)",
+      "title": "Stuxnet's OT Sabotage",
+      "text": "Once inside the air-gapped OT network, how did Stuxnet physically destroy the centrifuges without alerting engineers?",
+      "options": [
+        "It shut down the facility's main electrical transformer.",
+        "It modified Siemens S7 PLC code to alter centrifuge speeds while replaying normal recorded telemetry to hide alarms.",
+        "It encrypted the HMI touchscreens with ransomware.",
+        "It flooded the network with DDoS packets."
+      ]
+    },
+    {
+      "id": "hard_2",
+      "category": "Cyber-Physical (OT/ICS)",
+      "title": "Industroyer / CrashOverride (2016)",
+      "text": "During the 2016 Kyiv power grid attack, what technical capability made Industroyer unique in malware history?",
+      "options": [
+        "It spoke native industrial control protocols (IEC 104, IEC 61850) to directly open substation circuit breakers.",
+        "It used AI to guess operator passwords in real time.",
+        "It injected firmware directly into communication satellites.",
+        "It spread exclusively through smart meters in residential homes."
+      ]
+    },
+    {
+      "id": "hard_3",
+      "category": "Cyber-Physical (OT/ICS)",
+      "title": "Triton / Trisis (2017)",
+      "text": "Triton crossed a critical red line by risking human lives in an industrial plant. What specific system did it compromise?",
+      "options": [
+        "Triconex Safety Instrumented Systems (SIS), designed to safely shut down the plant during emergencies.",
+        "Water purification chemical dispensers.",
+        "Subsea gas pipeline pressure sensors.",
+        "Biosafety lab air filtration units."
+      ]
+    },
+    {
+      "id": "hard_4",
+      "category": "Cyber-Physical (OT/ICS)",
+      "title": "BlackEnergy 3 (2015)",
+      "text": "Considered the first confirmed cyberattack to cause a power outage, how did attackers using BlackEnergy 3 cut power to over 225,000 people?",
+      "options": [
+        "By blowing up physical transformers with malware.",
+        "By hijacking HMI/SCADA workstations remotely to manually flip circuit breakers, then wiping systems with KillDisk.",
+        "By jamming GPS timing signals.",
+        "By cutting fiber-optic cables outside the plant."
+      ]
+    },
+    {
+      "id": "hard_5",
+      "category": "Cyber-Physical (OT/ICS)",
+      "title": "Havex (2014 - Europe)",
+      "text": "Targeting European energy and industrial companies, how did the Havex RAT map out victims' OT networks?",
+      "options": [
+        "By scanning for OPC (OLE for Process Control) servers via trojanized ICS vendor software updates.",
+        "By cracking Wi-Fi WPA2 handshakes.",
+        "By intercepting unencrypted satellite telemetry.",
+        "By exploiting Bluetooth beacons on factory floors."
+      ]
+    },
+    {
+      "id": "hard_6",
+      "category": "Malware & Botnets",
+      "title": "Conficker's Evasion (2008)",
+      "text": "Conficker infected millions of machines across Europe, including government and military networks. What technique did it popularize to prevent defenders from blocking its Command & Control (C2) servers?",
+      "options": [
+        "Domain Generation Algorithms (DGA) that generated hundreds of new potential C2 domains daily.",
+        "Hiding commands inside YouTube video comments.",
+        "Using quantum encryption.",
+        "Routing all traffic through Tor exit nodes."
+      ]
+    },
+    {
+      "id": "hard_7",
+      "category": "Estonia & Europe",
+      "title": "SolarWinds / SUNBURST (2020)",
+      "text": "Affecting major US and European organizations, how was the SUNBURST backdoor initially delivered to targets?",
+      "options": [
+        "Via a zero-day exploit in Google Chrome.",
+        "Embedded inside a digitally signed, legitimate software update for the Orion IT monitoring platform (Supply Chain Attack).",
+        "Through infected USB sticks distributed at a Brussels summit.",
+        "Via compromised BGP routing tables."
+      ]
+    }
+  ]
+}
